@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   infrastructure:
     docker: 
-      - image: cimg/python:3
+      - image: cimg/python:3.10.6
     steps:
       - run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
