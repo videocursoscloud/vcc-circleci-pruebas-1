@@ -37,5 +37,7 @@ workflows:
       - build-and-push-docker-image:
           context: docker-hub-vcc
       - infrastructure:
-          context: docker-hub-vcc
+          context: 
+            - docker-hub-vcc
+            - aws-access
          
