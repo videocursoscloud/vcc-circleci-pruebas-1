@@ -12,7 +12,7 @@ jobs:
           rm -rf awscli-exe-linux-x86_64.zip
       - run: 
           name: Deploy cluster
-          run: aws cloudformation deploy --stack-name $CIRCLE_BRANCH --template-file cfn/template.yml --capabilities CAPABILITY_NAMED_IAM
+          command: aws cloudformation deploy --stack-name $CIRCLE_BRANCH --template-file cfn/template.yml --capabilities CAPABILITY_NAMED_IAM
 
       
   build-and-push-docker-image:
