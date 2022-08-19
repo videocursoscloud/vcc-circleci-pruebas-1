@@ -7,14 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "show current directory"
-          command: "pwd"      
-      - run:
-          name: "List directories"
-          command: "ls -la"
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "install requirements"
+          command: "pip3 install -f requirements.txt"      
+   
       - run: python --version
 
 workflows:
