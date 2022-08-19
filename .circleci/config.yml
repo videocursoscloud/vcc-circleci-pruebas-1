@@ -12,8 +12,7 @@ jobs:
           command: docker build -t vcc-circleci-test-image:latest .
       - run:
           name: dockerhub login
-          command: echo "$DOCKER_PASS" | docker login --username videocursoscloud --password-stdin
-  
+          command: docker login --username videocursoscloud -p $DOCKER_PASS
 
 
 workflows:
