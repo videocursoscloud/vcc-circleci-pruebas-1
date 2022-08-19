@@ -8,8 +8,10 @@ jobs:
       - run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
-          ./aws/install
+          sudo ./aws/install
           rm -rf awscli-exe-linux-x86_64.zip
+      - run: aws sts get-caller-identity
+      
   build-and-push-docker-image:
     docker: 
       - image: docker:17.05.0-ce-git
