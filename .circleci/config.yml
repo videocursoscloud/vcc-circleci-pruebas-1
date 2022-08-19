@@ -15,6 +15,7 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+      - run: python --version
 
 workflows:
   say-hello-workflow:
