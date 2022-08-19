@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   say-hello:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/python:3.10.6
     steps:
       - checkout
       - run:
