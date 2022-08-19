@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  infrastructure:
+  create_cluster:
     docker: 
       - image: cimg/python:3.10.6
     steps:
@@ -10,9 +10,10 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install
           rm -rf awscli-exe-linux-x86_64.zip
-      - run: aws sts get-caller-identity
-      - run: echo $CIRCLE_BRANCH
-      - run: env
+      - run: 
+          name: Deploy cluster
+          run: aws cloudformation deploy --stack-name $CIRCLE_BRANCH --template-file cfn/template.yml --capabilities CAPABILITY_NAMED_IAM
+
       
   build-and-push-docker-image:
     docker: 
@@ -38,7 +39,7 @@ workflows:
     jobs:
       - build-and-push-docker-image:
           context: docker-hub-vcc
-      - infrastructure:
+      - create_cluster:
           context: 
             - docker-hub-vcc
             - aws-access
