@@ -1,6 +1,15 @@
 version: 2.1
 
 jobs:
+  infrastructure:
+    docker: 
+      - image: cimg/python:3
+    steps:
+      - run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
+          rm -rf awscli-exe-linux-x86_64.zip
   build-and-push-docker-image:
     docker: 
       - image: docker:17.05.0-ce-git
@@ -21,7 +30,10 @@ jobs:
           command: docker push videocursoscloud/vcc-circleci-test-image:latest         
 
 workflows:
-  say-hello-workflow:
+  docker_build_and_push:
     jobs:
       - build-and-push-docker-image:
           context: docker-hub-vcc
+      - infrastructure:
+          context: docker-hub-vcc
+         
