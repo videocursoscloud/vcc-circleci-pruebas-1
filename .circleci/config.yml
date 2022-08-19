@@ -18,7 +18,7 @@ jobs:
           command: docker tag vcc-circleci-test-image:latest videocursoscloud/vcc-circleci-test-image:latest
       - run:
           name: Push image
-          command: docker push vcc-circleci-test-image          
+          command: docker push videocursoscloud/vcc-circleci-test-image:latest         
 
 workflows:
   say-hello-workflow:
