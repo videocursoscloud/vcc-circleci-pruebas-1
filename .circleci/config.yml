@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build image
-          command: docker build pythontest .
+          command: docker build -t pythontest .
 
   say-hello:
     docker:
