@@ -1,47 +1,15 @@
 version: 2.1
 
 jobs:
-  create_cluster:
+  hello:
     docker: 
       - image: cimg/python:3.10.6
-    steps:
-      - checkout
+    steps:   
       - run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-          rm -rf awscli-exe-linux-x86_64.zip
-      - run: 
-          name: Deploy cluster
-          command: aws cloudformation deploy --stack-name $CIRCLE_BRANCH --template-file cfn/template.yml --capabilities CAPABILITY_NAMED_IAM
-
-      
-  build-and-push-docker-image:
-    docker: 
-      - image: docker:17.05.0-ce-git
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Build image
-          command: docker build -t vcc-circleci-test-image:latest .
-      - run:
-          name: dockerhub login
-          command: docker login --username videocursoscloud -p $DOCKER_PASS
-      - run:
-          name: Tag Image
-          command: docker tag vcc-circleci-test-image:latest videocursoscloud/vcc-circleci-test-image:latest
-      - run:
-          name: Push image
-          command: docker push videocursoscloud/vcc-circleci-test-image:latest         
+          echo "hello there"
 
 workflows:
-  docker_build_and_push:
+  hello:
     jobs:
-      - build-and-push-docker-image:
+      - hello
           context: docker-hub-vcc
-      - create_cluster:
-          context: 
-            - docker-hub-vcc
-            - aws-access
-         
