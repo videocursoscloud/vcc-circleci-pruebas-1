@@ -11,5 +11,5 @@ jobs:
 workflows:
   hello:
     jobs:
-      - hello
+      - hello:
           context: docker-hub-vcc
