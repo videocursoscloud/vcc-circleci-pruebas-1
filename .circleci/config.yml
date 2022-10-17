@@ -20,11 +20,13 @@ jobs:
     parameters:
       environment:
         type: string
+      assume_role:
+        type: string
     docker: 
       - image: cimg/python:3.10.6
     steps:   
       - run: |
-          echo "hello there << parameters.environment >>"
+          echo "hello there << parameters.environment >>, the role is << parameters.assume_role >>"
 
 workflows:
   test-dev:
@@ -34,6 +36,8 @@ workflows:
             alias: dev-environments
             parameters:
               environment: *dev_environments
+              assume_role: ["devrole"]
+
   test-staging:
     jobs:
       - test:
@@ -41,6 +45,7 @@ workflows:
             alias: test-environments
             parameters:
               environment: *test_environments
+              assume_role: ["testrole"]
   prod-staging:
     jobs:
       - test:
@@ -48,3 +53,4 @@ workflows:
             alias: prod-environments
             parameters:
               environment: *prod_environments
+              assume_role: ["prodrole"]
