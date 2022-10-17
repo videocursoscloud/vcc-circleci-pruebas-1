@@ -4,7 +4,7 @@ environments:
   dev: &dev_environments
        - dev 
        - uat
-  staging: &staging_environments
+  staging: &test_environments
        - staging
        - testing
   prod: &prod_environments
@@ -34,3 +34,17 @@ workflows:
             alias: dev-environments
             parameters:
               environment: *dev_environments
+  test-staging:
+    jobs:
+      - test:
+          matrix:
+            alias: test-environments
+            parameters:
+              environment: *test_environments
+  prod-staging:
+    jobs:
+      - test:
+          matrix:
+            alias: prod-environments
+            parameters:
+              environment: *prod_environments
