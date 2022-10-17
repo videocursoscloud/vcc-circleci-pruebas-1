@@ -9,25 +9,18 @@ jobs:
           echo "hello there"
   test:
     parameters:
-      os: 
-        type: string
-      version:
+      environment:
         type: string
     docker: 
       - image: cimg/python:3.10.6
     steps:   
       - run: |
-          echo "hello there << parameteres.os >> << parameters.version >>"
+          echo "hello there << parameters.environment >>"
 
 workflows:
-  hello:
+  all-tests:
     jobs:
-      - hello:
-          context: docker-hub-vcc
-   all-tests:
-     jobs:
-       - test:
-           matrix:
-             parameters:
-             os: [docker, linux, macos]
-             version: ["1","2"]
+      - test:
+          matrix:
+            parameters:
+              environment: [ "dev", "testing", "prod"]
