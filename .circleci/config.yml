@@ -1,5 +1,14 @@
 version: 2.1
 
+environments:
+  dev: &dev_environments
+       - dev 
+       - uat
+  staging: &staging_environments
+       - staging
+       - testing
+  prod: &prod_environments
+       - prod
 jobs:
   hello:
     docker: 
@@ -18,9 +27,10 @@ jobs:
           echo "hello there << parameters.environment >>"
 
 workflows:
-  all-tests:
+  test-dev:
     jobs:
       - test:
           matrix:
+            alias: dev-environments
             parameters:
-              environment: [ "dev", "testing", "prod"]
+              environment: *dev_environments
